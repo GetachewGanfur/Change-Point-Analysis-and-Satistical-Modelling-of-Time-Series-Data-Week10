@@ -1,0 +1,4 @@
+# This file ensures the data/raw directory is preserved in git
+# Place your Brent oil price CSV file here
+# Expected filename: brent_oil_prices.csv
+# Expected format: Date (day-month-year), Price (USD per barrel)

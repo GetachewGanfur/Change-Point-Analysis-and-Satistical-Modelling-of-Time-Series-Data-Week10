@@ -1,0 +1,89 @@
+# Brent Oil Price Change Point Analysis Configuration
+
+# Data configuration
+data:
+  oil_prices:
+    file_path: "data/raw/brent_oil_prices.csv"
+    date_format: "%d-%b-%y"
+    start_date: "1987-05-20"
+    end_date: "2022-09-30"
+  
+  events:
+    file_path: "data/events/major_events.csv"
+    categories:
+      - "Geopolitical Conflict"
+      - "Economic Crisis"
+      - "OPEC Decision"
+      - "Geopolitical Shock"
+      - "Geopolitical Unrest"
+      - "Energy Crisis"
+      - "Economic Sanctions"
+      - "Global Health Crisis"
+
+# Analysis configuration
+analysis:
+  change_point:
+    model_types:
+      - "mean_change"
+      - "variance_change"
+      - "both"
+    
+    mcmc_settings:
+      draws: 2000
+      tune: 2000
+      chains: 2
+      target_accept: 0.95
+    
+    # For demo/development - reduced settings
+    demo_settings:
+      draws: 500
+      tune: 500
+      chains: 2
+      sample_size: 1000
+  
+  correlation:
+    time_window_days: 30
+    min_probability_threshold: 0.5
+
+# Dashboard configuration
+dashboard:
+  backend:
+    host: "0.0.0.0"
+    port: 5000
+    debug: true
+    cors_enabled: true
+  
+  frontend:
+    port: 3000
+    api_url: "http://localhost:5000/api"
+    
+  visualization:
+    default_chart_height: 400
+    color_scheme:
+      primary: "#1976d2"
+      secondary: "#dc004e"
+      success: "#2e7d32"
+      warning: "#ed6c02"
+      error: "#d32f2f"
+    
+    date_ranges:
+      - "1M"   # 1 month
+      - "3M"   # 3 months
+      - "6M"   # 6 months
+      - "1Y"   # 1 year
+      - "2Y"   # 2 years
+      - "5Y"   # 5 years
+      - "ALL"  # All data
+
+# Logging configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file_path: "logs/application.log"
+
+# Performance settings
+performance:
+  max_data_points_chart: 5000
+  analysis_timeout_seconds: 300
+  cache_results: true
+  parallel_processing: true
