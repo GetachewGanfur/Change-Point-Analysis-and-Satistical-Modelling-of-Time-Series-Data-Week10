@@ -1,191 +1,118 @@
-"""
-Implements change point detection models for analyzing structural breaks
-in Brent oil price data.
-"""
-
-import pandas as pd
 import numpy as np
-from typing import Dict, List, Tuple, Optional
-import logging
+import pandas as pd
+import pymc as pm
+import arviz as az
+import matplotlib.pyplot as plt
+from scipy import stats
 
-class ChangePointModel:
-    """
-    Change point detection model for identifying structural breaks in oil prices.
-    
-    This class implements change point analysis to identify dates when the
-    statistical properties of the time series change significantly.
-    """
-    
-    def __init__(self, data: pd.DataFrame, method: str = 'pelt'):
-        """
-        Initialize change point model.
+class EnhancedChangePointModel:
+    def __init__(self, data, dates=None):
+        self.data = np.array(data)
+        self.dates = dates
+        self.n = len(self.data)
+        self.model = None
+        self.trace = None
         
-        Args:
-            data (pd.DataFrame): Time series data
-            method (str): Detection method ('pelt', 'binseg', 'window')
-        """
-        self.data = data
-        self.method = method
-        self.change_points = []
-        self.model_results = {}
+    def fit(self, n_samples=2000, tune=1000, chains=2):
+        """Fit Bayesian change point model"""
+        with pm.Model() as model:
+            # Change point location
+            tau = pm.DiscreteUniform('tau', lower=10, upper=self.n-10)
+            
+            # Parameters before and after change point
+            mu1 = pm.Normal('mu1', mu=0, sigma=1)
+            mu2 = pm.Normal('mu2', mu=0, sigma=1)
+            sigma1 = pm.HalfNormal('sigma1', sigma=1)
+            sigma2 = pm.HalfNormal('sigma2', sigma=1)
+            
+            # Switch function
+            idx = np.arange(self.n)
+            mu = pm.math.switch(tau >= idx, mu1, mu2)
+            sigma = pm.math.switch(tau >= idx, sigma1, sigma2)
+            
+            # Likelihood
+            obs = pm.Normal('obs', mu=mu, sigma=sigma, observed=self.data)
+            
+            # Sample
+            self.trace = pm.sample(n_samples, tune=tune, chains=chains, 
+                                 return_inferencedata=True, random_seed=42)
+            
+        self.model = model
+        return self.trace
     
-    def detect_change_points(self, penalty: float = 10.0) -> Dict:
-        """
-        Detect change points in the time series.
+    def get_change_point_summary(self):
+        """Get change point summary statistics"""
+        tau_samples = self.trace.posterior['tau'].values.flatten()
         
-        Args:
-            penalty (float): Penalty parameter for model complexity
-            
-        Returns:
-            Dict: Change point detection results
-        """
-        try:
-            if self.method == 'pelt':
-                results = self._pelt_detection(penalty)
-            elif self.method == 'binseg':
-                results = self._binary_segmentation(penalty)
-            else:
-                results = self._sliding_window_detection()
-            
-            self.model_results = results
-            logging.info(f"Detected {len(results.get('change_points', []))} change points")
-            return results
-            
-        except Exception as e:
-            logging.error(f"Change point detection failed: {str(e)}")
-            raise
-    
-    def _pelt_detection(self, penalty: float) -> Dict:
-        """PELT (Pruned Exact Linear Time) change point detection."""
-        try:
-            # Simplified PELT implementation
-            prices = self.data['price'].values
-            n = len(prices)
-            
-            # Calculate cost function (simplified)
-            costs = []
-            for i in range(1, n):
-                segment1 = prices[:i]
-                segment2 = prices[i:]
-                cost = np.var(segment1) + np.var(segment2) + penalty
-                costs.append((i, cost))
-            
-            # Find minimum cost change point
-            best_cp = min(costs, key=lambda x: x[1])
-            
-            return {
-                'change_points': [best_cp[0]],
-                'change_dates': [self.data.iloc[best_cp[0]]['date']],
-                'method': 'PELT',
-                'penalty': penalty,
-                'cost': best_cp[1]
-            }
-            
-        except Exception as e:
-            logging.error(f"PELT detection failed: {str(e)}")
-            return {}
-    
-    def _binary_segmentation(self, penalty: float) -> Dict:
-        """Binary segmentation change point detection."""
-        try:
-            prices = self.data['price'].values
-            change_points = []
-            
-            def find_best_split(start: int, end: int) -> Optional[int]:
-                if end - start < 10:  # Minimum segment size
-                    return None
-                
-                best_split = None
-                best_improvement = 0
-                
-                for split in range(start + 5, end - 5):
-                    seg1 = prices[start:split]
-                    seg2 = prices[split:end]
-                    full_seg = prices[start:end]
-                    
-                    improvement = np.var(full_seg) - (np.var(seg1) + np.var(seg2))
-                    
-                    if improvement > best_improvement and improvement > penalty:
-                        best_improvement = improvement
-                        best_split = split
-                
-                return best_split
-            
-            # Find first split
-            split = find_best_split(0, len(prices))
-            if split:
-                change_points.append(split)
-            
-            return {
-                'change_points': change_points,
-                'change_dates': [self.data.iloc[cp]['date'] for cp in change_points],
-                'method': 'Binary Segmentation',
-                'penalty': penalty
-            }
-            
-        except Exception as e:
-            logging.error(f"Binary segmentation failed: {str(e)}")
-            return {}
-    
-    def _sliding_window_detection(self) -> Dict:
-        """Sliding window change point detection."""
-        try:
-            prices = self.data['price'].values
-            window_size = min(50, len(prices) // 10)
-            change_points = []
-            
-            for i in range(window_size, len(prices) - window_size):
-                before = prices[i-window_size:i]
-                after = prices[i:i+window_size]
-                
-                # T-test for mean difference
-                from scipy.stats import ttest_ind
-                t_stat, p_value = ttest_ind(before, after)
-                
-                if p_value < 0.01:  # Significant change
-                    change_points.append(i)
-            
-            # Remove nearby change points
-            filtered_cps = []
-            for cp in change_points:
-                if not filtered_cps or cp - filtered_cps[-1] > window_size:
-                    filtered_cps.append(cp)
-            
-            return {
-                'change_points': filtered_cps,
-                'change_dates': [self.data.iloc[cp]['date'] for cp in filtered_cps],
-                'method': 'Sliding Window',
-                'window_size': window_size
-            }
-            
-        except Exception as e:
-            logging.error(f"Sliding window detection failed: {str(e)}")
-            return {}
-    
-    def get_expected_outputs(self) -> Dict:
-        """
-        Define expected outputs and limitations of change point analysis.
-        
-        Returns:
-            Dict: Expected outputs and limitations
-        """
-        return {
-            'expected_outputs': {
-                'change_point_dates': 'Specific dates when structural breaks occur',
-                'regime_parameters': 'Statistical parameters for each regime',
-                'confidence_intervals': 'Uncertainty bounds for change point locations',
-                'model_diagnostics': 'Goodness-of-fit and model selection metrics'
-            },
-            'limitations': {
-                'false_positives': 'May detect spurious change points in noisy data',
-                'parameter_sensitivity': 'Results depend on penalty parameter selection',
-                'minimum_segment_size': 'Cannot detect changes in very short segments',
-                'assumption_violations': 'Assumes independence and normality of residuals',
-                'computational_complexity': 'May be slow for very large datasets'
-            },
-            'interpretation_guidelines': {
-                'statistical_significance': 'Change points indicate statistical breaks, not causal relationships',
-                'economic_meaning': 'Requires domain expertise to interpret economic significance',
-                'temporal_precision': 'Change point dates are estimates with uncertainty'
-            }
+        summary = {
+            'mode_tau': int(stats.mode(tau_samples)[0][0]),
+            'mean_tau': np.mean(tau_samples),
+            'median_tau': np.median(tau_samples),
+            'tau_95_hdi': az.hdi(tau_samples, hdi_prob=0.95)
         }
+        
+        if self.dates is not None:
+            summary['mode_date'] = self.dates.iloc[summary['mode_tau']]
+            summary['mean_date'] = self.dates.iloc[int(summary['mean_tau'])]
+            summary['median_date'] = self.dates.iloc[int(summary['median_tau'])]
+            
+        return summary
+    
+    def get_parameter_summary(self):
+        """Get parameter summary statistics"""
+        return az.summary(self.trace, var_names=['mu1', 'mu2', 'sigma1', 'sigma2'])
+    
+    def check_convergence(self):
+        """Check model convergence"""
+        rhat = az.rhat(self.trace)
+        ess = az.ess(self.trace)
+        
+        return {
+            'converged': all(rhat[var].max() < 1.1 for var in rhat.data_vars),
+            'rhat': rhat,
+            'ess': ess
+        }
+    
+    def plot_results(self, figsize=(14, 10)):
+        """Plot comprehensive results"""
+        fig, axes = plt.subplots(2, 2, figsize=figsize)
+        
+        # Data with change point
+        tau_mode = int(stats.mode(self.trace.posterior['tau'].values.flatten())[0][0])
+        
+        axes[0, 0].plot(self.data, 'b-', alpha=0.7, linewidth=0.8)
+        axes[0, 0].axvline(tau_mode, color='red', linestyle='--', linewidth=2, 
+                          label=f'Change Point (τ={tau_mode})')
+        axes[0, 0].set_title('Data with Detected Change Point')
+        axes[0, 0].legend()
+        axes[0, 0].grid(True, alpha=0.3)
+        
+        # Change point posterior
+        tau_samples = self.trace.posterior['tau'].values.flatten()
+        axes[0, 1].hist(tau_samples, bins=50, alpha=0.7, density=True)
+        axes[0, 1].axvline(tau_mode, color='red', linestyle='--', 
+                          label=f'Mode = {tau_mode}')
+        axes[0, 1].set_title('Change Point Posterior Distribution')
+        axes[0, 1].set_xlabel('τ (Change Point Index)')
+        axes[0, 1].legend()
+        
+        # Parameter comparison
+        mu1_samples = self.trace.posterior['mu1'].values.flatten()
+        mu2_samples = self.trace.posterior['mu2'].values.flatten()
+        
+        axes[1, 0].hist(mu1_samples, bins=50, alpha=0.5, label='μ₁ (before)', density=True)
+        axes[1, 0].hist(mu2_samples, bins=50, alpha=0.5, label='μ₂ (after)', density=True)
+        axes[1, 0].set_title('Mean Parameters')
+        axes[1, 0].legend()
+        
+        # Volatility comparison
+        sigma1_samples = self.trace.posterior['sigma1'].values.flatten()
+        sigma2_samples = self.trace.posterior['sigma2'].values.flatten()
+        
+        axes[1, 1].hist(sigma1_samples, bins=50, alpha=0.5, label='σ₁ (before)', density=True)
+        axes[1, 1].hist(sigma2_samples, bins=50, alpha=0.5, label='σ₂ (after)', density=True)
+        axes[1, 1].set_title('Volatility Parameters')
+        axes[1, 1].legend()
+        
+        plt.tight_layout()
+        plt.show()
