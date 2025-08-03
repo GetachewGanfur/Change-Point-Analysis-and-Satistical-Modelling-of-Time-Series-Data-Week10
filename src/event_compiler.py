@@ -1,7 +1,6 @@
 """
 Event Data Compiler Module
 ==========================
-
 Handles research and compilation of geopolitical events, OPEC decisions,
 and economic shocks relevant to oil market analysis.
 """
@@ -14,7 +13,6 @@ import logging
 class EventCompiler:
     """
     Compiles and manages geopolitical and economic events affecting oil prices.
-    
     This class handles the research, compilation, and structuring of major events
     that could impact Brent oil prices for change point analysis.
     """
