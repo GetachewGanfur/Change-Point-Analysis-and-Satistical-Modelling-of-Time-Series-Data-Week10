@@ -1,0 +1,16 @@
+date,event,category,impact
+1990-08-02,Iraq invasion of Kuwait,Geopolitical,High
+2001-09-11,September 11 attacks,Geopolitical,High
+2003-03-20,Iraq War begins,Geopolitical,High
+2008-09-15,Lehman Brothers collapse,Economic,High
+2010-12-17,Arab Spring begins,Geopolitical,Medium
+2011-03-19,Libya civil war intervention,Geopolitical,Medium
+2014-11-27,OPEC maintains production,OPEC Decision,High
+2016-11-30,OPEC production cut agreement,OPEC Decision,High
+2018-05-08,US withdraws from Iran nuclear deal,Geopolitical,Medium
+2020-03-06,OPEC+ deal collapse,OPEC Decision,High
+2020-03-11,WHO declares COVID-19 pandemic,Economic,High
+2020-04-20,WTI oil futures turn negative,Economic,High
+2022-02-24,Russia invades Ukraine,Geopolitical,High
+2022-10-05,OPEC+ announces production cuts,OPEC Decision,Medium
+2023-04-02,OPEC+ surprise production cuts,OPEC Decision,Medium
